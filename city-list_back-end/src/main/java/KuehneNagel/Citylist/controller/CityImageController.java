@@ -1,7 +1,7 @@
 package KuehneNagel.Citylist.controller;
 
 import KuehneNagel.Citylist.controller.dto.ImageResponse;
-import KuehneNagel.Citylist.service.ImageService;
+import KuehneNagel.Citylist.service.CityImageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/images")
 @Api(value = "APIs for Image management", tags = {"Images"})
-public class ImageController {
+public class CityImageController {
 
     @Autowired
-    private ImageService imageService;
+    private CityImageService imageService;
 
     /**
      * @param isSearch indicate that search request
