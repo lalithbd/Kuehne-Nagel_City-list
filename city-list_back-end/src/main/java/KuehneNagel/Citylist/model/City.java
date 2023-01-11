@@ -20,4 +20,12 @@ public class City {
     private String name;
     private String description;
     private String storedFileName;
+
+    public City() {
+    }
+
+    public City(String name, String storedFileName) {
+        this.name = name;
+        this.storedFileName = storedFileName;
+    }
 }
