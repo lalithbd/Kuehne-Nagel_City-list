@@ -1,0 +1,14 @@
+.tool-bar {
+  text-align: center;
+  height: 54px!important;
+  font-size: xx-large;
+  background-color: black;
+  color: green;
+  padding: 0 !important;
+}
+
+.main-logo-icon {
+  width: 40px;
+  margin: 20px;
+  display: inline-block;
+}
