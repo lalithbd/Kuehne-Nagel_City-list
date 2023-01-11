@@ -1,0 +1,15 @@
+.choose-file-c {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.choose-file {
+  display: block;
+  width: 30%;
+}
+
+.file-name {
+  font-size: 13px !important;
+  color: #4c555a;
+  overflow: hidden;
+  width: 70%;
+}

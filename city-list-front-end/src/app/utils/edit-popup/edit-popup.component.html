@@ -2,17 +2,19 @@
   <div>
     <mat-form-field appearance="outline" style="width: 100%">
       <mat-label>City Name *</mat-label>
-      <input matInput placeholder="Type city" [ngModel]="cityName" [value]="cityName">
+      <input matInput placeholder="Type city" [(ngModel)]="cityName" [value]="cityName">
     </mat-form-field>
-    <div style="width: 100%">
-      <input class="input-file" readonly [value]="selectedFile?.name" style="width: 100%">
-    </div>
-    <div class="choose-file">
-      <button class="square-button" type="button" mat-flat-button color="primary" (click)="fileInput.click()">Choose File</button>
-      <input [value]="tempName" hidden (change)="handleFileInput($event)" #fileInput type="file" accept="image/*">
+    <div class="row flex justify-content-between">
+      <div class="file-name" style="width: 70%">
+        <input class="input-file" readonly [value]="selectedFile?.name" style="width: 100%">
+      </div>
+      <div class="choose-file">
+        <button type="button" mat-flat-button color="primary" (click)="fileInput.click()">Choose File</button>
+        <input [value]="tempName" hidden (change)="handleFileInput($event)" #fileInput type="file" accept="image/*">
+      </div>
     </div>
     <div>
-      <button (click)="onClose()">Submit</button>
+      <button mat-flat-button color="primary" type="button" (click)="onClose()">Submit</button>
     </div>
   </div>
 </mat-card>
