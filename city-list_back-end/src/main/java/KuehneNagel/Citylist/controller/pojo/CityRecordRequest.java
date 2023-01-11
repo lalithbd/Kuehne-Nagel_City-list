@@ -2,7 +2,7 @@ package KuehneNagel.Citylist.controller.pojo;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({ "id", "name", "link"})
+@JsonPropertyOrder({"id", "name", "link"})
 public class CityRecordRequest {
 
     private Long id;
