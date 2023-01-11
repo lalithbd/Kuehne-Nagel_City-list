@@ -130,7 +130,7 @@ public class CityImageServiceImpl implements CityImageService {
     private String getRandomFileName(String name) {
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
         int randomValue = random.nextInt(high - low) + low;
-        return name + timestamp + randomValue;
+        return name + timestamp.getTime() + randomValue;
     }
 
     private City findOne(Long id) {
@@ -143,6 +143,9 @@ public class CityImageServiceImpl implements CityImageService {
     public void createAll(List<CityRecordRequest> cityRecordRequests) {
         cityRecordRequests.forEach(cityRecordRequest -> {
             byte[] data = httpService.getDataFromUrl(cityRecordRequest.getLink());
+            if(data == null){
+                return;
+            }
             String fileName = getRandomFileName(cityRecordRequest.getName());
             File file = new File(fileName);
             try {

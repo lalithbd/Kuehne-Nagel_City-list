@@ -44,6 +44,7 @@ public class BulkCityImageServiceImpl implements BulkCityImageService {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(data);
         InputStreamReader inputStreamReader = new InputStreamReader(byteArrayInputStream);
         List<CityRecordRequest> cityRecordRequests = readData(inputStreamReader);
+        cityRecordRequests.remove(0);
         cityImageService.createAll(cityRecordRequests);
     }
 
