@@ -1,1 +1,23 @@
-<p>city-viewer works!</p>
+
+<mat-card>
+  <app-page-loader [hidden]="!isLoading"></app-page-loader>
+  <mat-paginator
+    [hidden]="noCities | async"
+    [length]="totalElementCount"
+    [pageSize]="pageSize"
+    [pageIndex]="pageNumber"
+    (page)="changePage($event.pageIndex)"
+    [showFirstLastButtons]="true" ></mat-paginator>
+  <mat-card-content class="row">
+    <mat-card *ngFor="let cityLink of cities" class="column card-background" flex>
+      <div class="row image-header">
+        <div>{{cityLink.cityName}}</div>
+        <button mat-stroked-button (click)="editCity(cityLink.id, cityLink.cityName)" >Edit city</button>
+      </div>
+      <div class="">
+        <img [style.width]="cityLink.byteData.width"  [style.height]="cityLink.byteData.height"  [src]="cityLink.byteData">
+      </div>
+
+    </mat-card>
+  </mat-card-content>
+</mat-card>
