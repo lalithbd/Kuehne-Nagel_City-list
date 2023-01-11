@@ -6,7 +6,6 @@ public class ImageResponse {
     private Long id;
     private String name;
     private String description;
-    private byte[] data;
 
     public Long getId() {
         return id;
@@ -32,11 +31,4 @@ public class ImageResponse {
         this.description = description;
     }
 
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
-    }
 }
