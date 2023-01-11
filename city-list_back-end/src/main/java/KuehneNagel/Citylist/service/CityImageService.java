@@ -15,4 +15,6 @@ public interface CityImageService {
     void updateCity(Long id, MultipartFile file, String cityName) throws CityListException;
 
     void createAll(List<CityRecordRequest> cityRecordRequests);
+
+    byte[] getByteData(Long id) throws CityListException;
 }
