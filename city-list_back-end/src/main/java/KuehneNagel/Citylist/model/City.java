@@ -19,6 +19,10 @@ public class City {
     public City() {
     }
 
+    public City(String name) {
+        this.name = name;
+    }
+
     public City(String name, String storedFileName) {
         this.name = name;
         this.storedFileName = storedFileName;
