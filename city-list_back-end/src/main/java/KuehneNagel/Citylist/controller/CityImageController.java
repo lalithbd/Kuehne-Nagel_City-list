@@ -5,19 +5,21 @@ import KuehneNagel.Citylist.exception.CityListException;
 import KuehneNagel.Citylist.service.CityImageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * This controller contains api for city image view and management
  */
 @RestController
-@RequestMapping("/images")
+@RequestMapping("/city-images")
 @Api(value = "APIs for Image management", tags = {"Images"})
 public class CityImageController {
 
@@ -54,5 +56,17 @@ public class CityImageController {
                                          @RequestParam("city-name") String cityName) throws CityListException {
         cityImageService.updateCity(id, file, cityName);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @ApiOperation(value = "Get report for device configuration list")
+    @GetMapping(value = "/{id}")
+    public HttpEntity<ByteArrayResource> createExcel(@PathVariable("id") Long id) throws CityListException {
+        byte[] reportResponse = cityImageService.getByteData(id);
+
+
+        HttpHeaders header = new HttpHeaders();
+        header.setContentType(new MediaType("application", "force-download"));
+        header.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=image.jpg");
+        return new HttpEntity<>(new ByteArrayResource(reportResponse), header);
     }
 }
