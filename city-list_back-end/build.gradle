@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
-	runtimeOnly 'com.mysql:mysql-connector-j'
+	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -27,9 +27,14 @@ dependencies {
 	implementation 'io.springfox:springfox-swagger2:2.9.2'
 	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 
-	compileOnly group: 'org.projectlombok', name: 'lombok', version: '0.11.0'
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-csv', version: '2.9.9'
+	implementation 'com.amazonaws:aws-java-sdk-s3'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+
+dependencyManagement {
+	imports {
+		mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.396'
+	}
 }
