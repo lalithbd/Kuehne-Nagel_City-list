@@ -1,2 +1,7 @@
 node_modules/
 package-lock.json
+.idea/vcs.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/City-list.iml
+.idea/inspectionProfiles/Project_Default.xml
