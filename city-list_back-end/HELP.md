@@ -12,7 +12,7 @@ For building and running the application you need:
         s3.bucket.name=
         aws.s3.accessKey=
         aws.s3.secretKey=
-        
+    After than user http://localhost:8085/bulk-images with provided city list csv for initial data setup
 * The original package name 'Kuehne-Nagel.City-list' is invalid and this project uses 'KuehneNagel.Citylist' instead.
 
 # Getting Started
