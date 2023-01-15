@@ -18,6 +18,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.13.0'
+	testImplementation group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.2'
+
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.modelmapper:modelmapper:2.3.2'
