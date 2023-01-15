@@ -17,6 +17,7 @@ For building and running the application you need:
         s3.bucket.name=
         aws.s3.accessKey=
         aws.s3.secretKey=
-    After than user http://localhost:8085/bulk-images with provided city list csv for initial data setup
+    After than use http://localhost:8085/swagger-ui.html# get swagger UI.
+    user /bulk-images api in bulk city list controller with provided city list csv for initial data setup
 user swagger apis in web browser - http://localhost:8085/swagger-ui.html#,
 User /bulk-images/bulk api for import csv file for initial city setup
