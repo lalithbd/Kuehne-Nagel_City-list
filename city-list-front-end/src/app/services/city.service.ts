@@ -33,7 +33,7 @@ export class CityService extends HttpService {
         .set('is-search', isSearch)
         .set('search-value', searchValue)
     };
-    const url = '/city-images';
+    const url = '/city-images/get';
     super.getReq(url, queryParams).subscribe(response => {
       response.infoCode = 'cities';
       super.emit(response);
@@ -47,7 +47,7 @@ export class CityService extends HttpService {
         filter((data: any) => (data.infoCode === 'byteData' && data.id === id)),
         take(1),
         map(response => response.body));
-    const url = '/city-images/'+ id;
+    const url = '/city-images/get/'+ id;
     const headers = new HttpHeaders({'Content-Type': 'application/json', responseType: 'blob'});
 
     super.getReq(url, {
