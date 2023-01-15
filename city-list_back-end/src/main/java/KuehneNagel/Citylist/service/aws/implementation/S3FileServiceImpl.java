@@ -27,6 +27,11 @@ public class S3FileServiceImpl implements S3FileService {
     @Autowired
     private AmazonS3 s3client;
 
+    /**
+     * @param storedFileName S3 object key
+     * @return byte data of object
+     * @throws S3Exception
+     */
     @Override
     public byte[] getByteData(String storedFileName) throws S3Exception {
         S3Object s3Object;
@@ -44,10 +49,16 @@ public class S3FileServiceImpl implements S3FileService {
         }
     }
 
+    /**
+     * @param currentFileName Existing object key
+     * @param newFileName new object key
+     * @param file new object to be uploaded
+     * @throws S3Exception
+     */
     @Override
     public void replaceAndUpdate(String currentFileName, String newFileName, File file) throws S3Exception {
         if (currentFileName != null) {
-            delete(currentFileName);
+            delete(currentFileName); //Delete existing related Object from S3 bucket
         }
         uploadToS3(file, newFileName);
     }

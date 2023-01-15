@@ -19,8 +19,14 @@ public class BulkCityImageController {
     @Autowired
     private BulkCityImageService bulkCityImageService;
 
+    /**
+     * @param file Multipart request of csv for n=bulk city creation at initially
+     * @return  Http status code 200 for successful upload
+     * @throws CityListException
+     */
+    //TODO Need to implement method for check status for each file about file status
     @ApiOperation(value = "Create bulk city records by csv")
-    @PostMapping(value = "/bulk")
+    @PostMapping
     public ResponseEntity bulkCityAdd(@RequestParam("file") MultipartFile file) throws CityListException {
         bulkCityImageService.createBulkCityRecords(file);
 

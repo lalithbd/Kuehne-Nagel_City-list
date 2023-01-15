@@ -1,13 +1,20 @@
 package KuehneNagel.Citylist;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CityListApplicationTests {
+public class CityListApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void contextLoads() {
+    }
 
 }
