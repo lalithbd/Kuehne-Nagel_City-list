@@ -59,14 +59,16 @@ export class CityViewerComponent implements OnInit {
 
   editCity(id: number, name: string) {
     this.matDialog.open(EditPopupComponent, {
-      data: {id: id, name: name}, width: '50%', height: '50%'
+      data: {id: id, name: name}, width: '50%'
     }).afterClosed().subscribe(data => {
-      this.isLoading = true;
-      this.cityService.uploadCity(id, data.file, data.name).subscribe(() =>
-          this.loadCities(), error => {
-          this.isLoading = false;
-        }
-      )
+      if(data) {
+        this.isLoading = true;
+        this.cityService.uploadCity(id, data.file, data.name).subscribe(() =>
+            this.loadCities(), error => {
+            this.isLoading = false;
+          }
+        )
+      }
     })
   }
 

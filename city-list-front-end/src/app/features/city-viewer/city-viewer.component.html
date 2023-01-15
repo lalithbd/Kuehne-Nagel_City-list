@@ -1,17 +1,20 @@
-
-<mat-card>
+<mat-card class="main-container">
   <app-page-loader [hidden]="!isLoading"></app-page-loader>
-  <div [hidden]="isLoading">
+  <div [hidden]="isLoading" class="outer-container">
     <div class="row">
-      <div class="col-6" style="width: 50%;">
-        <mat-form-field appearance="outline" style="width: 100%">
-          <mat-label>City Name *</mat-label>
-          <input matInput placeholder="Type city" [(ngModel)]="searchValue">
-        </mat-form-field>
-        <button type="button" mat-flat-button color="primary" (click)="search()">Search</button>
-        <button class="button-style" *ngIf="isSearch" type="button" mat-flat-button color="primary" (click)="clear()">clear</button>
+      <div class="col-6 row toolbar">
+        <div class="col search-field">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>City Name *</mat-label>
+            <input matInput placeholder="Type city" [(ngModel)]="searchValue">
+          </mat-form-field>
+        </div>
+        <div class="col-6 button-area">
+          <button type="button" mat-flat-button color="primary" (click)="search()">Search</button>
+          <button class="button-style" *ngIf="isSearch" type="button" mat-flat-button color="primary" (click)="clear()">clear</button>
+        </div>
       </div>
-      <div *ngIf="!noCities" class="col-4">
+      <div *ngIf="!noCities" class="col" style="margin-top: 5px">
         <mat-paginator
           [length]="totalElementCount"
           [pageSize]="pageSize"
@@ -20,14 +23,16 @@
           [showFirstLastButtons]="true" ></mat-paginator>
       </div>
     </div>
-    <mat-card-content class="row">
-      <mat-card *ngFor="let cityLink of cities" class="column card-background" flex>
-        <div class="row image-header">
-          <div>{{cityLink.cityName}}</div>
-          <button mat-stroked-button (click)="editCity(cityLink.id, cityLink.cityName)" >Edit city</button>
+    <mat-card-content class="widget-height">
+      <mat-card *ngFor="let cityLink of cities" class="widget-width card-background" flex>
+        <div class="row image-header justify-content-end">
+          <div class="city-title col">{{cityLink.cityName}}</div>
+          <div class="col-3">
+            <button mat-stroked-button (click)="editCity(cityLink.id, cityLink.cityName)" >Edit city</button>
+          </div>
         </div>
-        <div class="">
-          <img [style.width]="cityLink.byteData.width"  [style.height]="cityLink.byteData.height"  [src]="cityLink.byteData">
+        <div >
+          <img class="image-container" [style.width]="cityLink.byteData.width"  [style.height]="cityLink.byteData.height"  [src]="cityLink.byteData">
         </div>
 
       </mat-card>
