@@ -13,3 +13,19 @@
   overflow: hidden;
   width: 70%;
 }
+
+.input-file{
+  height: 100%;
+}
+.button-width {
+  width: 100%;
+}
+.preview {
+  max-width: 300px;
+  max-height: 300px;
+  margin: 5px;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+
