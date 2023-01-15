@@ -24,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
@@ -52,8 +51,8 @@ public class CityImageServiceImpl implements CityImageService {
     private HttpService httpService;
 
     Random random = new Random();
-    private int low = 10;
-    private int high = 10000;
+    private final int low = 10;
+    private final int high = 10000;
 
     @Override
     public Page<ImageResponse> loadImages(boolean isSearch, String searchValue, int pageSize, int pageNumber) {
@@ -81,25 +80,19 @@ public class CityImageServiceImpl implements CityImageService {
             logger.warn("City record doesn't exists by id : {}", id);
             throw new CityListException(HttpStatus.BAD_REQUEST, "City record doesn't exists");
         }
+        byte[] data = new byte[0];
         try {
-            return s3FileService.getByteData(city.getStoredFileName());
+            data =  s3FileService.getByteData(city.getStoredFileName());
         } catch (S3Exception e) {
-            e.printStackTrace();
+            logger.error("Byte data fetching error for city id : {}", id);
         }
-        return new byte[0];
+        return data;
     }
 
     private List<ImageResponse> getImageData(List<City> cityContent) {
         List<ImageResponse> imageResponses = new ArrayList<>();
         cityContent.forEach(city -> {
             ImageResponse imageResponse = modelMapper.map(city, ImageResponse.class);
-//            byte[] bytes;
-//            try {
-//                bytes = s3FileService.getByteData(city.getStoredFileName());
-//                imageResponse.setData(bytes);
-//            } catch (S3Exception e) {
-//                logger.error("Byte data fetching error : {}", e.getMessage());
-//            }
             imageResponses.add(imageResponse);
         });
         return imageResponses;
@@ -136,7 +129,7 @@ public class CityImageServiceImpl implements CityImageService {
 
     private File getFileFromMultipartFile(String fileName, MultipartFile multipartFile) throws CityListException {
         try {
-            File file = File.createTempFile(fileName, ".jpg");
+            File file = File.createTempFile(fileName, ".tmp");
             multipartFile.transferTo(file);
             return file;
         } catch (IOException e) {
@@ -160,13 +153,13 @@ public class CityImageServiceImpl implements CityImageService {
     public void createAll(List<CityRecordRequest> cityRecordRequests) {
         cityRecordRequests.forEach(cityRecordRequest -> {
             byte[] data;
-                data = httpService.getDataFromUrl(cityRecordRequest.getLink());
-            if(data == null){
+            data = httpService.getDataFromUrl(cityRecordRequest.getLink());
+            if (data == null) {
                 City city = new City(cityRecordRequest.getName());
                 cityRepository.save(city);
                 return;
             }
-            String fileName = getRandomFileName(cityRecordRequest.getName())+ ".jpg";
+            String fileName = getRandomFileName(cityRecordRequest.getName());
             File file = new File(fileName);
             try {
                 Files.write(Paths.get(fileName), data);
@@ -180,10 +173,14 @@ public class CityImageServiceImpl implements CityImageService {
                 s3FileService.replaceAndUpdate(null, fileName, file);
             } catch (S3Exception e) {
                 logger.warn("City image upload failed for id : {}", e.getMessage());
-                file.delete();
+                if (file.delete()) {
+                    logger.warn("Local file deletion Failed : {}", fileName);
+                }
                 return;
             }
-            file.delete();
+            if (file.delete()) {
+                logger.warn("Local file deletion Failed : {}", fileName);
+            }
             City city = new City(cityRecordRequest.getName(), fileName);
             cityRepository.save(city);
         });

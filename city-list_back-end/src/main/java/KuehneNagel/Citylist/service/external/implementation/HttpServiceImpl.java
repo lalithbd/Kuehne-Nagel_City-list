@@ -30,15 +30,15 @@ public class HttpServiceImpl implements HttpService {
     }
 
     private byte[] call(String url, int attempt) {
-        if(attempt >= maxAttemptCount){
+        if(attempt >= maxAttemptCount){ //Builder can decide how many attempt count is allowed for single request if api is keep failing
             logger.error("Max attempt count reached and return: {}", url);
-            return null;
+            return new byte[0];
         }
         URI uri;
         try {
             uri = getUrl(url);
         } catch (URISyntaxException e) {
-            return null;
+            return new byte[0];
         }
         try {
             ResponseEntity<byte[]> responseEntity = restTemplate.getForEntity(uri, byte[].class);
