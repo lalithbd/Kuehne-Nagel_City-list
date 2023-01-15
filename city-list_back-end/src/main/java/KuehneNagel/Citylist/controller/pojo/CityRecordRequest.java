@@ -9,6 +9,16 @@ public class CityRecordRequest {
     private String name;
     private String link;
 
+
+    public CityRecordRequest() {
+    }
+
+    public CityRecordRequest(String id, String name, String link) {
+        this.id = id;
+        this.name = name;
+        this.link = link;
+    }
+
     public String getId() {
         return id;
     }

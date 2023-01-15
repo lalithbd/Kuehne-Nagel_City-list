@@ -28,6 +28,12 @@ public class City {
         this.storedFileName = storedFileName;
     }
 
+    public City(Long id, String name, String storedFileName) {
+        this.id = id;
+        this.name = name;
+        this.storedFileName = storedFileName;
+    }
+
     public Long getId() {
         return id;
     }
