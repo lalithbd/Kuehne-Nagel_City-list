@@ -1,7 +1,8 @@
 package KuehneNagel.Citylist.controller;
 
 import KuehneNagel.Citylist.controller.dto.ImageResponse;
-import KuehneNagel.Citylist.service.ImageService;
+import KuehneNagel.Citylist.exception.CityListException;
+import KuehneNagel.Citylist.service.CityImageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageController {
 
     @Autowired
-    private ImageService imageService;
+    private CityImageService imageService;
 
     /**
-     * @param isSearch indicate that search request
+     * @param isSearch    indicate that search request
      * @param searchValue if search search value should be presented
-     * @param pageSize indicate the page size for response data
-     * @param pageNumber indicate the page number for response data
+     * @param pageSize    indicate the page size for response data
+     * @param pageNumber  indicate the page number for response data
      * @return image information with page details
      */
     @ApiOperation(value = "Api for load image list with data", notes = "featured with search by name with pagination")
@@ -41,16 +42,16 @@ public class ImageController {
     }
 
     /**
-     * @param file image file for update
-     * @param id original city reference id from the api response
+     * @param file     image file for update
+     * @param id       original city reference id from the api response
      * @param cityName city name for replacement
      * @return Http code 202 for success
      */
     @ApiOperation(value = "Api for load image list with data", notes = "featured with search by name with pagination")
     @PutMapping(value = "/update")
-    public ResponseEntity updateCityData(@RequestParam ("file") MultipartFile file,
+    public ResponseEntity updateCityData(@RequestParam("file") MultipartFile file,
                                          @RequestParam("id") Long id,
-                                         @RequestParam("city-name") String cityName) {
+                                         @RequestParam("city-name") String cityName) throws CityListException {
         imageService.updateCity(id, file, cityName);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
